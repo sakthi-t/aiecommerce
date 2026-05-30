@@ -56,10 +56,13 @@ def get_or_create_user_from_clerk(clerk_user_id: str, payload: dict):
     )
 
     # Sync role from Clerk metadata
+    logger.info(f"[RoleSync] Fetching role for clerk_user_id={clerk_user_id}")
     synced_role = _fetch_role_from_clerk(clerk_user_id)
+    logger.info(f"[RoleSync] Got role={synced_role} for user={user.username}, current={profile.role}")
     if synced_role and profile.role != synced_role:
         profile.role = synced_role
         profile.save(update_fields=["role"])
+        logger.info(f"[RoleSync] Updated role to {synced_role} for {user.username}")
 
     # Sync email/name to profile if missing
     if email and not profile.email:

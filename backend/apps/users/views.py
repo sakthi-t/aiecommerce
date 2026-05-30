@@ -15,7 +15,10 @@ class MeView(APIView):
     def get(self, request):
         profile = request.user.userprofile
         serializer = UserProfileSerializer(profile)
-        return Response(serializer.data)
+        response = Response(serializer.data)
+        response["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
+        response["Pragma"] = "no-cache"
+        return response
 
 
 class UserProfileDetailView(generics.RetrieveUpdateAPIView):
