@@ -1,8 +1,11 @@
+import logging
 import requests
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import transaction
 from apps.users.models import UserProfile
+
+logger = logging.getLogger(__name__)
 
 
 @transaction.atomic
@@ -72,6 +75,7 @@ def get_or_create_user_from_clerk(clerk_user_id: str, payload: dict):
 def _fetch_user_from_clerk(clerk_user_id: str):
     secret_key = settings.CLERK_SECRET_KEY
     if not secret_key:
+        logger.warning("CLERK_SECRET_KEY not configured — cannot fetch user from Clerk")
         return None
     try:
         resp = requests.get(
@@ -81,8 +85,9 @@ def _fetch_user_from_clerk(clerk_user_id: str):
         )
         if resp.status_code == 200:
             return resp.json()
-    except Exception:
-        pass
+        logger.warning(f"Clerk API returned {resp.status_code} for user {clerk_user_id}")
+    except Exception as e:
+        logger.warning(f"Clerk API call failed for user {clerk_user_id}: {e}")
     return None
 
 
