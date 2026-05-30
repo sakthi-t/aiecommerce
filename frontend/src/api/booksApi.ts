@@ -1,6 +1,6 @@
 import type { Book, BookFormData, BookStats } from '../types'
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || ''
+const API_BASE = import.meta.env.PROD ? 'https://aiecommerce-production.up.railway.app' : (import.meta.env.VITE_API_BASE_URL || '')
 const BASE = `${API_BASE}/api/v1/books`
 
 async function authHeaders(sessionToken?: string) {

@@ -1,6 +1,6 @@
 import type { UserProfile } from '../types'
 
-const API_BASE = ''  // same domain in dev, set VITE_API_BASE_URL in production
+const API_BASE = import.meta.env.PROD ? 'https://aiecommerce-production.up.railway.app' : (import.meta.env.VITE_API_BASE_URL || '')
 
 export async function fetchMyProfile(
   getToken: () => Promise<string | null>
@@ -44,7 +44,7 @@ export async function deactivateUser(
   getToken: () => Promise<string | null>
 ): Promise<void> {
   const token = await getToken()
-  const res = await fetch(`/api/v1/users/admin/${id}/deactivate/`, {
+  const res = await fetch(`${API_BASE}/api/v1/users/admin/${id}/deactivate/`, {
     method: 'POST',
     headers: { Authorization: `Bearer ${token}` },
   })
@@ -56,7 +56,7 @@ export async function reactivateUser(
   getToken: () => Promise<string | null>
 ): Promise<void> {
   const token = await getToken()
-  const res = await fetch(`/api/v1/users/admin/${id}/reactivate/`, {
+  const res = await fetch(`${API_BASE}/api/v1/users/admin/${id}/reactivate/`, {
     method: 'POST',
     headers: { Authorization: `Bearer ${token}` },
   })
