@@ -1,0 +1,52 @@
+# Environment files
+.env
+.env_backend
+.env_frontend
+backend/.env
+frontend/.env
+
+# CommandCode
+.commandcode/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+*.egg
+.venv/
+venv/
+
+# Django
+backend/db.sqlite3
+backend/staticfiles/
+backend/media/
+
+# Node
+node_modules/
+frontend/node_modules/
+
+# Build output
+frontend/dist/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project markdown files (keep README.md)
+ecommerce.md
+prompt.md
+structure.md
+vapi.md
+voiceagent.md
+
+# Ngrok
+ngrok
