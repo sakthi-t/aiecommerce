@@ -1,9 +1,11 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 
+const API_BASE = import.meta.env.PROD ? 'https://aiecommerce-production.up.railway.app' : ''
+
 async function fetchAdminOrders(getToken: () => Promise<string | null>, page: number) {
   const token = await getToken()
-  const res = await fetch(`/api/v1/orders/admin/list/?page=${page}`, {
+  const res = await fetch(`${API_BASE}/api/v1/orders/admin/list/?page=${page}`, {
     headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
   })
   if (!res.ok) throw new Error('Failed to fetch orders')
@@ -16,7 +18,7 @@ async function updateOrderStatus(
   getToken: () => Promise<string | null>
 ) {
   const token = await getToken()
-  const res = await fetch(`/api/v1/orders/admin/${id}/status/`, {
+  const res = await fetch(`${API_BASE}/api/v1/orders/admin/${id}/status/`, {
     method: 'PATCH',
     headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({ status }),

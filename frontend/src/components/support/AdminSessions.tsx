@@ -29,9 +29,11 @@ const SPEAKER_COLORS: Record<string, string> = {
   agent: 'bg-green-100 text-green-700',
 }
 
+const API_BASE = import.meta.env.PROD ? 'https://aiecommerce-production.up.railway.app' : ''
+
 async function fetchAdminSessions(getToken: () => Promise<string | null>, page = 1) {
   const token = await getToken()
-  const res = await fetch(`/api/v1/support/admin/sessions/?page=${page}`, {
+  const res = await fetch(`${API_BASE}/api/v1/support/admin/sessions/?page=${page}`, {
     headers: { Authorization: `Bearer ${token}` },
   })
   if (!res.ok) throw new Error('Failed to fetch sessions')
@@ -40,7 +42,7 @@ async function fetchAdminSessions(getToken: () => Promise<string | null>, page =
 
 async function fetchSessionDetail(id: number, getToken: () => Promise<string | null>) {
   const token = await getToken()
-  const res = await fetch(`/api/v1/support/admin/sessions/${id}/`, {
+  const res = await fetch(`${API_BASE}/api/v1/support/admin/sessions/${id}/`, {
     headers: { Authorization: `Bearer ${token}` },
   })
   if (!res.ok) throw new Error('Failed to fetch session')
