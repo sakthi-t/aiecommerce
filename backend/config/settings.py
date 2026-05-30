@@ -20,6 +20,8 @@ ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
 if DEBUG:
     ALLOWED_HOSTS += [".ngrok-free.app", ".ngrok-free.dev", ".ngrok.io"]
 
+ALLOWED_HOSTS += [".up.railway.app"]
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
