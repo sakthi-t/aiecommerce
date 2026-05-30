@@ -1,4 +1,5 @@
-const BASE = '/api/v1/payments'
+const API_BASE = import.meta.env.VITE_API_BASE_URL || ''
+const BASE = `${API_BASE}/api/v1/payments`
 
 export async function createRazorpayOrder(getToken: () => Promise<string | null>) {
   const token = await getToken()

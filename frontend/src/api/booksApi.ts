@@ -1,6 +1,7 @@
 import type { Book, BookFormData, BookStats } from '../types'
 
-const BASE = '/api/v1/books'
+const API_BASE = import.meta.env.VITE_API_BASE_URL || ''
+const BASE = `${API_BASE}/api/v1/books`
 
 async function authHeaders(sessionToken?: string) {
   const headers: Record<string, string> = { 'Content-Type': 'application/json' }

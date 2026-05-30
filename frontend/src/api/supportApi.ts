@@ -1,4 +1,5 @@
-const BASE = '/api/v1/support'
+const API_BASE = import.meta.env.VITE_API_BASE_URL || ''
+const BASE = `${API_BASE}/api/v1/support`
 
 export async function startSession(getToken: () => Promise<string | null>): Promise<{
   session_id: number
@@ -14,7 +15,7 @@ export async function startSession(getToken: () => Promise<string | null>): Prom
   return res.json()
 }
 
-const VAPI_BASE = '/api/vapi'
+const VAPI_BASE = `${API_BASE}/api/vapi`
 
 export async function startVapiSession(getToken: () => Promise<string | null>): Promise<{
   session_id: number

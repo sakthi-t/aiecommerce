@@ -1,10 +1,12 @@
 import type { UserProfile } from '../types'
 
+const API_BASE = ''  // same domain in dev, set VITE_API_BASE_URL in production
+
 export async function fetchMyProfile(
   getToken: () => Promise<string | null>
 ): Promise<UserProfile> {
   const token = await getToken()
-  const res = await fetch('/api/v1/users/me/', {
+  const res = await fetch(`${API_BASE}/api/v1/users/me/`, {
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
@@ -30,7 +32,7 @@ export async function fetchAdminUsers(
   page = 1
 ): Promise<{ results: AdminUser[]; count: number; next: string | null; previous: string | null }> {
   const token = await getToken()
-  const res = await fetch(`/api/v1/users/admin/list/?page=${page}`, {
+  const res = await fetch(`${API_BASE}/api/v1/users/admin/list/?page=${page}`, {
     headers: { Authorization: `Bearer ${token}` },
   })
   if (!res.ok) throw new Error('Failed to fetch users')

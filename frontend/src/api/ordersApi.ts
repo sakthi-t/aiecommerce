@@ -1,4 +1,5 @@
-const BASE = '/api/v1/orders'
+const API_BASE = import.meta.env.VITE_API_BASE_URL || ''
+const BASE = `${API_BASE}/api/v1/orders`
 
 export async function fetchOrders(getToken: () => Promise<string | null>, page = 1) {
   const token = await getToken()
